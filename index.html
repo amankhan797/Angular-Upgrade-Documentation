@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade from Angular 13 to Angular 18</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="content">
+        <h1>Upgrade from Angular 13 to Angular 18</h1>
+
+        <!-- Upgrade from Angular 13 to Angular 14 -->
+        <h2>13 to 14</h2>
+        <p>The first step was upgrading Angular from version 13 to 14. Below are the steps I followed:</p>
+
+        <h3>1. Backup Your Project</h3>
+        <p>Before starting the upgrade process, I made sure to back up my entire project. This step is crucial to prevent any data loss in case of errors during the upgrade.</p>
+        <pre><code>cp -r my-project my-project-backup</code></pre>
+
+        <h3>2. Upgrade Node.js Version</h3>
+        <p>To begin, I made sure that Node.js was up-to-date. Angular 14 requires a newer version of Node.js, so I updated it to the latest LTS version:</p>
+        <pre><code>nvm install --lts</code></pre>
+
+        <h3>3. Check for Outdated Packages</h3>
+        <p>I used the <code>npm outdated</code> command to check for outdated packages before upgrading Angular. This showed me which packages needed to be updated manually:</p>
+        <pre><code>npm outdated</code></pre>
+
+        <h3>4. Manually Upgrade Packages</h3>
+        <p>Next, I manually upgraded the following packages to the specific versions that Angular 14 requires:</p>
+        <ul>
+            <li><code>@angular/cdk</code></li>
+            <li><code>@angular/compiler</code></li>
+            <li><code>@angular/core</code></li>
+            <li><code>@angular/cli</code></li>
+            <li><code>@types/node</code></li>
+        </ul>
+        <p>Here are the commands I used to upgrade them:</p>
+        <pre><code>npm install @angular/cdk@14 @angular/compiler@14 @angular/core@14 @angular/cli@14 @types/node@14 --save-dev</code></pre>
+
+        <h3>5. Upgrade TypeScript Version</h3>
+        <p>Since Angular 14 required a specific TypeScript version, I upgraded TypeScript to version 4.9 using the following command:</p>
+        <pre><code>npm install typescript@4.9 --save-dev --legacy-peer-deps</code></pre>
+
+        <h3>6. Update Angular CLI</h3>
+        <p>I updated the Angular CLI globally and locally to version 14:</p>
+        <pre><code>npm install -g @angular/cli@14</code></pre>
+        <pre><code>npm install @angular/cli@14</code></pre>
+
+        <h3>7. Resolve Dependency Issues</h3>
+        <p>During the upgrade, I ran into some peer dependency issues. To resolve them, I used the <code>--legacy-peer-deps</code> flag. This flag helps resolve peer dependency conflicts by installing packages even if the versions are incompatible:</p>
+        <pre><code>npm install --legacy-peer-deps</code></pre>
+
+        <h3>8. Clean npm Cache</h3>
+        <p>I ran <code>npm cache clean --force</code> to clear the npm cache. This was necessary to prevent issues caused by corrupted or outdated cache:</p>
+        <pre><code>npm cache clean --force</code></pre>
+
+        <h3>9. Check TypeScript Version</h3>
+        <p>Before proceeding, I checked the TypeScript version using the following command:</p>
+        <pre><code>npx tsc --version</code></pre>
+        <p>This ensured that I was using a compatible TypeScript version before proceeding with the Angular upgrade.</p>
+
+        <h3>10. Run the Project with Increased Memory</h3>
+        <p>After upgrading the packages, I encountered memory issues while running the project. To resolve this, I used the following command to allocate more memory to the process:</p>
+        <p>then I ran the application to check if it worked correctly</p>
+        <pre><code>node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve</code></pre>
+        <p>This command increases the maximum memory allocation for the Node.js process, preventing out-of-memory errors during the build process.</p>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
