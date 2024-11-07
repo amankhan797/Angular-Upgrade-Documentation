@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upgrade from Angular 13 to Angular 18</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="content">
         <h1>Upgrade from Angular 13 to Angular 18</h1>
@@ -15,15 +17,18 @@
         <p>The first step was upgrading Angular from version 13 to 14. Below are the steps I followed:</p>
 
         <h3>1. Backup Your Project</h3>
-        <p>Before starting the upgrade process, I made sure to back up my entire project. This step is crucial to prevent any data loss in case of errors during the upgrade.</p>
+        <p>Before starting the upgrade process, I made sure to back up my entire project. This step is crucial to
+            prevent any data loss in case of errors during the upgrade.</p>
         <pre><code>cp -r my-project my-project-backup</code></pre>
 
         <h3>2. Upgrade Node.js Version</h3>
-        <p>To begin, I made sure that Node.js was up-to-date. Angular 14 requires a newer version of Node.js, so I updated it to the latest LTS version:</p>
+        <p>To begin, I made sure that Node.js was up-to-date. Angular 14 requires a newer version of Node.js, so I
+            updated it to the latest LTS version:</p>
         <pre><code>nvm install --lts</code></pre>
 
         <h3>3. Check for Outdated Packages</h3>
-        <p>I used the <code>npm outdated</code> command to check for outdated packages before upgrading Angular. This showed me which packages needed to be updated manually:</p>
+        <p>I used the <code>npm outdated</code> command to check for outdated packages before upgrading Angular. This
+            showed me which packages needed to be updated manually:</p>
         <pre><code>npm outdated</code></pre>
 
         <h3>4. Manually Upgrade Packages</h3>
@@ -39,7 +44,8 @@
         <pre><code>npm install @angular/cdk@14 @angular/compiler@14 @angular/core@14 @angular/cli@14 @types/node@14 --save-dev</code></pre>
 
         <h3>5. Upgrade TypeScript Version</h3>
-        <p>Since Angular 14 required a specific TypeScript version, I upgraded TypeScript to version 4.9 using the following command:</p>
+        <p>Since Angular 14 required a specific TypeScript version, I upgraded TypeScript to version 4.9 using the
+            following command:</p>
         <pre><code>npm install typescript@4.9 --save-dev --legacy-peer-deps</code></pre>
 
         <h3>6. Update Angular CLI</h3>
@@ -48,11 +54,14 @@
         <pre><code>npm install @angular/cli@14</code></pre>
 
         <h3>7. Resolve Dependency Issues</h3>
-        <p>During the upgrade, I ran into some peer dependency issues. To resolve them, I used the <code>--legacy-peer-deps</code> flag. This flag helps resolve peer dependency conflicts by installing packages even if the versions are incompatible:</p>
+        <p>During the upgrade, I ran into some peer dependency issues. To resolve them, I used the
+            <code>--legacy-peer-deps</code> flag. This flag helps resolve peer dependency conflicts by installing
+            packages even if the versions are incompatible:</p>
         <pre><code>npm install --legacy-peer-deps</code></pre>
 
         <h3>8. Clean npm Cache</h3>
-        <p>I ran <code>npm cache clean --force</code> to clear the npm cache. This was necessary to prevent issues caused by corrupted or outdated cache:</p>
+        <p>I ran <code>npm cache clean --force</code> to clear the npm cache. This was necessary to prevent issues
+            caused by corrupted or outdated cache:</p>
         <pre><code>npm cache clean --force</code></pre>
 
         <h3>9. Check TypeScript Version</h3>
@@ -61,11 +70,86 @@
         <p>This ensured that I was using a compatible TypeScript version before proceeding with the Angular upgrade.</p>
 
         <h3>10. Run the Project with Increased Memory</h3>
-        <p>After upgrading the packages, I encountered memory issues while running the project. To resolve this, I used the following command to allocate more memory to the process:</p>
+        <p>After upgrading the packages, I encountered memory issues while running the project. To resolve this, I used
+            the following command to allocate more memory to the process:</p>
         <p>then I ran the application to check if it worked correctly</p>
         <pre><code>node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve</code></pre>
-        <p>This command increases the maximum memory allocation for the Node.js process, preventing out-of-memory errors during the build process.</p>
+        <p>This command increases the maximum memory allocation for the Node.js process, preventing out-of-memory errors
+            during the build process.</p>
+
+        <!-- Upgrade from Angular 14 to Angular 15 -->
+        <h2>14 to 15</h2>
+        <p>After committing the progress made from Angular 13 to Angular 14, I started upgrading from Angular 14 to
+            Angular 15 as per the Angular update guide.</p>
+
+        <h3>1. Verify Node.js Version</h3>
+        <p>Angular v15 supports the following versions of Node.js:</p>
+        <ul>
+            <li>14.20.x</li>
+            <li>16.13.x</li>
+            <li>18.10.x</li>
+        </ul>
+        <p>I checked my current Node.js version using:</p>
+        <pre><code>node --version</code></pre>
+        <p>I already have Node version <b>v20.12.2</b> so no need to worry.</p>
+
+        <h3>2. Verify TypeScript Version</h3>
+        <p>Angular v15 requires TypeScript version 4.8 or later. I verified my TypeScript version with:</p>
+        <pre><code>npx tsc --version</code></pre>
+        <p>I updated TypeScript to the required version:</p>
+        <pre><code>npm install typescript@4.8 --save-dev --legacy-peer-deps</code></pre>
+
+        <h3>3. Run `npm outdated`</h3>
+        <p>I ran the <code>npm outdated</code> command to check which packages needed to be updated. The following
+            packages required an upgrade:</p>
+        <ul>
+            <li><code>@angular/animations@15.2.10</code></li>
+            <li><code>@angular/common@15.2.10</code></li>
+            <li><code>@angular/compiler@15.2.10</code></li>
+            <li><code>@angular/core@15.2.10</code></li>
+            <li><code>@angular-devkit/build-angular@15.2.11</code></li>
+            <li><code>@angular/cli@15.2.11</code></li>
+        </ul>
+        <p>To upgrade them, I used the following command:</p>
+        <pre><code>npm install @angular/animations@15.2.10 @angular/common@15.2.10 @angular/compiler@15.2.10 @angular/core@15.2.10 @angular-devkit/build-angular@15.2.11 @angular/cli@15.2.11 --save-dev</code></pre>
+
+        <h3>4. Resolve Google Maps Issue</h3>
+        <p>During the upgrade, I encountered a problem with <code>@angular/google-maps</code> as it is no longer
+            maintained in Angular 15. I attempted to upgrade the library and check if it still worked, but ultimately I
+            had to switch to a different, actively maintained package.</p>
+        <p>I upgraded the <code>agm-direction</code> package with:</p>
+        <pre><code>npm install agm-direction@latest</code></pre>
+        <p>This resolved some issues, but I had to make further changes in upcoming angular versions because this
+            library is no longer maintained and supported. <code>@angular/google-maps</code></p>
+
+        <h3>5. Fix `ngx-infinite-scroll` Compatibility</h3>
+        <p>I faced compatibility issues with <code>ngx-infinite-scroll</code> during the upgrade. Although I tried
+            installing <code>ngx-infinite-scroll@0.5.21</code>, it didn't work. I had to manually update the code in
+            several files to make the library compatible with Angular 15.</p>
+        <p>After rewriting parts of the code in 2-3 files where <code>ngx-infinite-scroll</code> was used, I
+            successfully resolved the issues and got the functionality working again.</p>
+
+        <h3>6. Fix `NaN` Check Issue</h3>
+        <p>During the upgrade, I encountered a bug where <code>NaN</code> values were being incorrectly checked. In
+            JavaScript and TypeScript, <code>NaN</code> is not equal to itself, so simple equality checks like
+            <code>year == NaN</code> don't work as expected.</p>
+        <p>The solution was to use <code>Number.isNaN()</code> for checking <code>NaN</code> values:</p>
+        <pre><code>
+if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) {
+    return null;
+}
+</code></pre>
+        <p>After updating the code to use <code>Number.isNaN()</code>, the issue was resolved, and the checks for
+            invalid numbers (i.e., <code>NaN</code>) worked as expected.</p>
+
+        <h3>7. Test the Changes</h3>
+        <p>After completing the upgrade and resolving the issues, I ran the application to ensure everything worked as
+            expected:</p>
+        <pre><code>node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve</code></pre>
+        <p>The application compiled with warnings but without errors, and all the features were working fine.</p>
+
     </div>
     <script src="scripts.js"></script>
 </body>
+
 </html>
